@@ -1,0 +1,163 @@
+html,body{
+	height: 100%;
+}
+
+#joinform .help-block, #joinform .glyphicon{
+	display: none;
+}
+
+
+#gen {
+	cursor: pointer;
+}
+
+.submit {
+  width: 100%;
+  font-weight: bold;
+  background-color: #263343;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.retry {
+  width: 100%;
+  font-weight: bold;
+  background-color: white;
+  color: #263343;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: 1px solid #263343;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modify {
+  width: 100%;
+  font-weight: bold;
+  background-color: #263343;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.leave {
+  width: 100%;
+  font-weight: bold;
+  background-color: white;
+  color: #263343;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: 1px solid #263343;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.leave:hover{
+	background-color: #99EEEE;
+}
+
+.join {
+	width: 100%;
+  font-weight: bold;
+  background-color: white;
+  color: #263343;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: 1px solid #263343;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit:hover {
+  background-color: #99EEEE;
+  color: #263343;
+}
+
+.button:hover {
+  background-color: #99EEEE;
+  color: #263343;
+}
+
+.gray-div {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 40px;
+}
+.gray-body {
+  background-color: #f2f2f2;
+}
+
+.tab-content {
+	border-radius: 5px;
+	background-color: white;
+  padding: 20px;
+}
+
+.maintitle {
+	font-weight: bold;
+}
+
+.change{
+	font-weight: bold;
+	
+}
+
+.subtitle {
+	text-align: center;
+	font-weight: bold;
+	background-color: #bef4f4;
+	color: black;
+	border: 1px solid white;
+}
+
+.maintext {
+	text-align: right;
+	background-color: white;
+	color: black;
+}
+
+section.row{
+	padding: 14px;
+}
+
+.marg-bott{
+	margin-bottom: 30px;
+}
+
+.curs:disabled{
+	cursor: text;
+}
+
+.wrap {
+   min-height:100%;
+   position:relative;
+   padding-bottom:10px;
+}
+
+.login{
+	height: 3.5em;
+}
+
+img.logo{
+	margin-top: 10%;
+}
+
+.titles{
+	text-align: right;
+}
+
+.bolder{
+	font-weight: bold;
+}
+
+.checking{
+	text-align: center;
+	font-weight: bold;
+}

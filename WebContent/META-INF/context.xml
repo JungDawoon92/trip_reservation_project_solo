@@ -1,0 +1,13 @@
+<Context>
+   <Resource 
+      name = "jdbc_maria" 
+      auth = "Container"
+      type = "javax.sql.DataSource"
+      driverClassName = "org.mariadb.jdbc.Driver"
+      username = "root"
+      password = "1234"
+      maxActive= "500" 
+      maxIdle = "100"
+      url="jdbc:mysql://localhost:3306/aqua" 
+   />
+</Context>

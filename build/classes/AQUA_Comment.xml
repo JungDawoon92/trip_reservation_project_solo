@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="aqua">
+	
+	<select id="isMember" resultType="string">
+		SELECT MEMBER_PW FROM MEMBER WHERE MEMBER_ID=#{MEMBER_ID}
+	</select>
+	
+	<insert id="joinMember" parameterType="java.util.HashMap">
+		INSERT INTO MEMBER VALUES ( #{MEMBER_ID}, #{MEMBER_PW}, #{MEMBER_NAME}, #{MEMBER_AGE}, #{MEMBER_GENDER}, #{MEMBER_EMAIL} )
+	</insert>
+	<select id="recentreview" resultType="client.comment.board.db.BoardBean">
+		SELECT * FROM MEMBERBOARD ORDER BY BOARD_NUM DESC LIMIT 0,5
+	</select>
+	
+
+
+	<select id="likecount" resultType="int" parameterType="java.util.HashMap">
+		SELECT COUNT(*) FROM MEMBERLIKE WHERE LIKE_ID= #{LIKE_ID} AND LIKE_BOARD_NUM = #{LIKE_BOARD_NUM}
+	</select>
+	<insert id="likeinsert" parameterType="java.util.HashMap">
+		INSERT INTO MEMBERLIKE VALUES (#{LIKE_ID},#{LIKE_BOARD_NUM},1)
+	</insert>
+	<delete id="likedelete" parameterType="java.util.HashMap">
+		DELETE FROM MEMBERLIKE WHERE LIKE_ID= #{LIKE_ID} AND LIKE_BOARD_NUM = #{LIKE_BOARD_NUM}
+	</delete>
+	<select id="boardnumlikecount" resultType="client.comment.like.db.BoardLikeBean">
+		SELECT LIKE_BOARD_NUM,COUNT(*) AS LIKE_COUNT FROM MEMBERLIKE GROUP BY LIKE_BOARD_NUM
+	</select>
+	
+	
+	
+	<select id="getSearchList_id" parameterType="java.util.HashMap" resultType="client.comment.board.db.BoardBean">
+		SELECT * FROM MEMBERBOARD WHERE BOARD_ID LIKE '%' #{BOARD_ID} '%' ORDER BY BOARD_NUM DESC LIMIT #{startrow},10
+	</select>
+	
+	<select id="getSearchIdListCount" resultType="int" parameterType="string">
+		SELECT COUNT(*) FROM MEMBERBOARD WHERE BOARD_ID LIKE '%' #{search_id} '%'
+	</select>
+
+	<select id="getSearchList_Subject" parameterType="java.util.HashMap" resultType="client.comment.board.db.BoardBean">
+		SELECT * FROM MEMBERBOARD WHERE BOARD_SUBJECT LIKE '%' #{BOARD_SUBJECT} '%' ORDER BY BOARD_NUM DESC LIMIT #{startrow},10
+	</select>
+	
+	<select id="getSearchSubjectListCount" resultType="int" parameterType="string">
+		SELECT COUNT(*) FROM MEMBERBOARD WHERE BOARD_SUBJECT LIKE '%' #{search_subject} '%'
+	</select>
+	
+	
+	<select id="getSearchList_Content" parameterType="java.util.HashMap" resultType="client.comment.board.db.BoardBean">
+		SELECT * FROM MEMBERBOARD WHERE BOARD_CONTENT LIKE '%' #{BOARD_CONTENT} '%' ORDER BY BOARD_NUM DESC LIMIT #{startrow},10
+	</select>
+	
+	<select id="getSearchContentListCount" resultType="int" parameterType="string">
+		SELECT COUNT(*) FROM MEMBERBOARD WHERE BOARD_CONTENT LIKE '%' #{search_content} '%'
+	</select>
+	
+	
+	
+	
+	<select id="getListCount" resultType="int">
+		SELECT COUNT(*) FROM MEMBERBOARD
+	</select>
+	<select id="getListmaxnum" resultType="int">
+		SELECT MAX(BOARD_NUM) FROM MEMBERBOARD
+	</select>
+	
+	<select id="getBoardList" parameterType="int" resultType="client.comment.board.db.BoardBean">
+		SELECT * FROM MEMBERBOARD ORDER BY BOARD_NUM DESC LIMIT #{startrow},10
+	</select>
+	
+	<insert id="boardInsert" parameterType="java.util.HashMap">
+		  INSERT INTO MEMBERBOARD(BOARD_ID, BOARD_SUBJECT, BOARD_CONTENT, BOARD_FILE, BOARD_READCOUNT, BOARD_DATE) 
+    	  VALUES ( #{BOARD_ID}, #{BOARD_SUBJECT}, #{BOARD_CONTENT}, #{BOARD_FILE}, 0, sysdate())
+	</insert>
+	
+	<update id="setReadCountUpdate" parameterType="int">
+		UPDATE MEMBERBOARD SET BOARD_READCOUNT = BOARD_READCOUNT+1 WHERE BOARD_NUM = #{num}
+	</update>
+	
+	<select id="getDetail" parameterType="int" resultType="client.comment.board.db.BoardBean">
+		SELECT * FROM MEMBERBOARD WHERE BOARD_NUM = #{num}
+	</select>
+	
+	<select id="isBoardWriter" parameterType="int" resultType="string">
+		SELECT BOARD_ID FROM MEMBERBOARD WHERE BOARD_NUM= #{num}
+	</select>
+	
+	<update id="boardModify" parameterType="java.util.HashMap">
+		UPDATE MEMBERBOARD SET BOARD_SUBJECT =#{BOARD_SUBJECT}, BOARD_CONTENT=#{BOARD_CONTENT}, BOARD_FILE=#{BOARD_FILE} WHERE BOARD_NUM=#{BOARD_NUM};
+	</update>
+	
+	<delete id="boardDelete" parameterType="int">
+		DELETE FROM MEMBERBOARD WHERE BOARD_NUM= #{num}
+	</delete>
+	<delete id="commentAllDelete" parameterType="int">
+		DELETE FROM COMMENT WHERE COMMENT_BOARD_NO= #{num}
+	</delete>
+	
+	
+	<select id="getcommentmaxnum" resultType="int">
+		SELECT MAX(COMMENT_NUM) FROM COMMENT
+	</select>
+	<insert id="insertcomment" parameterType="java.util.HashMap">
+		INSERT INTO COMMENT VALUES ( #{COMMENT_NUM}, #{COMMENT_ID}, 0, #{COMMENT_CONTENT}, #{COMMENT_RE_REF} ,0, sysdate(), #{COMMENT_BOARD_NO})
+	</insert>
+	<select id="commentListCount" resultType="int">
+		SELECT COUNT(*) FROM COMMENT WHERE COMMENT_BOARD_NO=#{num}
+	</select>
+	<select id="getCommentList" parameterType="java.util.HashMap" resultType="client.comment.comment.db.CommentBean">
+		SELECT * FROM COMMENT WHERE COMMENT_BOARD_NO=#{COMMENT_BOARD_NO} ORDER BY COMMENT_RE_REF ASC, COMMENT_RE_LEV ASC LIMIT #{startrow},10
+	</select>
+	<select id="isCommentWriter" parameterType="int" resultType="string">
+		SELECT COMMENT_ID FROM COMMENT WHERE COMMENT_NUM= #{num}
+	</select>
+	<delete id="commentDelete" parameterType="int">
+		DELETE FROM COMMENT WHERE COMMENT_NUM= #{num}
+	</delete>
+	<insert id="replycomment" parameterType="java.util.HashMap">
+		INSERT INTO COMMENT VALUES ( #{COMMENT_NUM}, #{COMMENT_ID},0, #{COMMENT_CONTENT}, #{COMMENT_RE_REF} ,1, sysdate(), #{COMMENT_BOARD_NO})
+	</insert>
+	<update id="commentLevDel" parameterType="int">
+		UPDATE COMMENT SET COMMENT_ID="admin",COMMENT_CONTENT = "삭제된 댓글입니다" WHERE COMMENT_NUM= #{num}
+	</update>
+	<select id="refcount" resultType="int" parameterType="int">
+		SELECT COUNT(COMMENT_RE_REF) FROM COMMENT WHERE COMMENT_RE_REF = #{num}
+	</select>
+	
+	
+	<select id="boardnumcommentcount" resultType="client.comment.comment.db.CommentBean">
+		SELECT COMMENT_BOARD_NO,COUNT(*) AS COMMENT_NUM FROM COMMENT GROUP BY COMMENT_BOARD_NO 
+	</select>
+
+
+
+	<select id="admincheck" parameterType="int" resultType="string">
+		SELECT COMMENT_CONTENT FROM COMMENT WHERE COMMENT_NUM= #{num}
+	</select>
+	<delete id="admindelete" parameterType="int">
+		DELETE FROM COMMENT WHERE COMMENT_NUM= #{num}
+	</delete>
+	
+	<update id="admincommentLevDel" parameterType="int">
+		UPDATE COMMENT SET COMMENT_ID="admin",COMMENT_CONTENT = "관리자 권한에 의해 삭제된 댓글입니다." WHERE COMMENT_NUM= #{num}
+	</update>
+</mapper>

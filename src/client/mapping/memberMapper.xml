@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper      
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"      
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="client.member.db.MemberDAO">
+<select id="isMember" resultType="cmember"  parameterType="String">
+    SELECT PASS, ID FROM MEMBER WHERE ID = #{id}
+  </select>
+  
+<select id="idMember" resultType="cmember">
+    SELECT ID FROM MEMBER
+  </select>
+  
+<select id="getDetailMember" resultType="cmember">
+    SELECT * FROM MEMBER WHERE ID = #{id}
+  </select>
+  
+ <insert id="joinMember" parameterType="cmember">
+    INSERT INTO MEMBER(id, pass, name, addr, birthday, gen, email, 
+    phone, joindate) 
+    VALUES ( #{id}, #{pass}, #{name}, #{addr}, #{birthday}, #{gen}, 
+    #{email}, #{phone}, sysdate())
+  </insert>
+  
+<update id="updateMember" parameterType="cmember">
+    update MEMBER set ID = #{id}, PASS = #{pass}, NAME = #{name}, GEN = #{gen}, 
+    EMAIL = #{email}, PHONE = #{phone}, ADDR = #{addr}, BIRTHDAY = #{birthday}
+    where ID = #{id}
+  </update>
+
+<delete id="leaveMember" parameterType="cmember">
+    delete from MEMBER
+    where ID = #{id}
+  </delete>
+</mapper>

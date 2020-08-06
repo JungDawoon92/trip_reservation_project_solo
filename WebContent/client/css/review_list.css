@@ -1,0 +1,14 @@
+.form-control-inline {
+    min-width: 0;
+    width: auto;
+    display: inline;
+	}
+	
+	.margintop20 {
+	margin-top: 20px;
+	}
+	
+	.content_div a  {
+  	text-decoration: none;
+  	color: black;
+	}

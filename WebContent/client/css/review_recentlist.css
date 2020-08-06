@@ -1,0 +1,24 @@
+.updownCont{
+	position: fixed;
+	display: table;
+	right: 120px;
+	bottom: 90px;
+	width: inherit;
+}
+  
+  .write {
+  	margin-top: 20px;
+  	}
+  
+  .content_div a  {
+  	text-decoration: none;
+  	color: black;
+	}
+
+	
+	@media screen and (max-width: 815px) {
+	
+	.updownCont{
+	display: none;
+	}
+}
